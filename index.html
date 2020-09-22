@@ -17,7 +17,7 @@
                             <li class="nav-blog-item nav-blog-item-hidden"><a
                                 href="${pageContext.request.contextPath}/HomePageServlet" class="nav-blog-link nav-link-blog"></a></li>
 
-                            <li class="nav-blog-item"><a href="${pageContext.request.contextPath}/ProductsListServlet?category=archi"
+                            <li class="nav-blog-item"><a href=""
                                 class="nav-blog-link">Articoli scientifici</a></li>
             
                             <li class="nav-blog-item"><a href="${pageContext.request.contextPath}/ProductsListServlet?category=accessori-arco"
@@ -37,8 +37,12 @@
         </header>
 
         <section>
-                <h1 class="title">ARTICOLI DEL GIORNO</h1>
+                <div class="title">
+                    <h1 class="title">ARTICOLI DEL GIORNO</h1>
 
+                    <p id="date"></p>
+                </div>
+                
                 <div class="col-md-9">
                 <article>                
                     <article class="card border-0 shadow">
@@ -55,7 +59,7 @@
                                 professore emerito di Statistica dell'Università di Leida, Olanda, e risolta dalla collega Anne-Wil Harzing. 
                             </p>
 
-                            <a href="/articlePage.html" class="small link">
+                            <a href="./articlePage1.html" class="small link">
                                 Scopri di più >
                             </a>
                             
@@ -76,7 +80,7 @@
                                 è parte fondamentale del processo e del progresso scientifico, e - quasi sempre - garanzia di correttezza e imparzialità.
                             </p>
 
-                            <a href="/articlePage.html" class="small link">
+                            <a href="./articlePage2.html" class="small link">
                                 Scopri di più >
                             </a>
                             
@@ -113,18 +117,24 @@
                     <article class="card border-0 shadow">
                         <div class="card-body text-center">
                             <h2 style="font-size: x-large; color: #0056b3; margin-bottom: 1rem;"><em>I più cliccati</em></h2>
+
+                            <br>
         
                             <ul>
                                 <li>
-                                    Uno
+                                    Il caso dell'articolo fantasma citato 400 volte
                                 </li>
 
-                                <li>
-                                    Due
-                                </li>
+                                <br>
 
                                 <li>
-                                    Tre
+                                    8 articoli scientifici rifiutati prima del Nobel
+                                </li>
+
+                                <br>
+
+                                <li>
+                                    Il 1905, l'anno d'oro di Albert Einstein
                                 </li>
                             </ul>
                             
@@ -134,5 +144,8 @@
             </div>
         </section>
     
+        <script type="text/javascript">
+            document.querySelector('#date').innerText = new Date().toLocaleDateString();
+        </script>
     </body>
 </html>

@@ -26,6 +26,18 @@ h1.title{
     font-size: 2rem;
     margin: 5% 0 0 3%;
     color: #8a8a8a;
+    display: inline-block;
+}
+
+p#date{
+    display: inline;
+    margin-left: .5%;
+    font-size: 2rem;
+    color: #8a8a8a;
+}
+
+article:hover{
+    transform: scale(1.01);
 }
 
 .card{
