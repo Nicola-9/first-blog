@@ -1,10 +1,32 @@
 @charset "UTF-8";
 
 body{
-    margin: 3%;
+    margin-top: 5%;
+    background-color: #fff !important; 
 }
 
 iframe{
     display: block !important;
-    margin: 0 auto;
+    margin: 0 auto 1rem auto;
+}
+
+header{
+	z-index: 1700 !important;
+}
+
+section{
+	display: block;
+	position: relative;
+    background-color: #fff;
+    width: 100%;
+    min-height: 100vh;
+    font-size: 1.5rem;
+}
+
+article{
+    margin: 1.5%;
+}
+
+footer{
+	width: 100%;
 }

@@ -5,40 +5,137 @@
     <title>Contattaci</title>
         <!--Bootsrap 4 CDN-->
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
-        <link rel="stylesheet" href="contactUsStyle.css">
+	
+		<link rel="stylesheet" href="navStyle.css">
+		<link rel="stylesheet" href="contactUsStyle.css">
+		<link rel="stylesheet" href="footerStyle.css">
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-    <img src="./email-image.png">
-	<div class="content">
-		<div class="d-flex justify-content-center h-100">
-			<div class="card">
-				<div class="card-header">
-					<h3>Contattaci</h3>
+	<header>
+		<div class="navblog-container">
+				<nav class="blog-nav">
+					<ul class="nav-blog-list nav-blog-list-larger">
+		
+						<li class="nav-blog-item nav-blog-item-hidden">
+							<a href="./index.html" class="nav-blog-link nav-link-blog"></a>
+						</li>
+
+						<li class="nav-blog-item"><a href="https://www.focus.it" target="_blank"
+							class="nav-blog-link">Articoli scientifici</a></li>
+		
+						<li class="nav-blog-item"><a href="https://www.ilfattoquotidiano.it/" target="_blank"
+							class="nav-blog-link">Articoli recenti</a></li>
+		
+						<li class="nav-blog-item"><a href="http://archivio.corriere.it/Archivio/interface/landing.html" target="_blank"
+							class="nav-blog-link">Articoli del passato</a></li>
+		
+						<li class="nav-blog-item"><a href="https://www.gazzetta.it/" target="_blank"
+							class="nav-blog-link">Articoli sportivi</a></li>
+		
+						<li class="nav-blog-item"><a href="./contactUs.html"
+							class="nav-blog-link">Contattaci</a></li>
+					</ul>
+				</nav>
+			</div>
+	</header>
+
+	<section>
+
+		<img class="logo-img" src="./email-image.png">
+		<div class="content">
+			<div class="d-flex justify-content-center h-100">
+				<div class="card">
+					<div class="card-header">
+						<h3>Contattaci</h3>
+					</div>
+					
+					<div class="card-body">
+					
+						<form id="form" action="mailto:example@gmail.com" method="POST">
+							<div class="input-group form-group">
+								<input type="email" class="form-control" placeholder="Email..." id="email" name="email">
+							</div>
+							
+							<div class="input-group form-group">				
+								<input type="text" class="form-control" placeholder="Nome completo..." id="email" name="nome">
+							</div>
+													
+							<div class="form-group contact-form">
+								<input type="submit" value="CONFERMA" class="btn btn-primary">
+							</div>
+							
+						</form>
+					</div>
+					
 				</div>
-				
-				<div class="card-body">
-				
-					<form id="form" action="mailto:example@gmail.com" method="POST">
-						<div class="input-group form-group">
-							<input type="email" class="form-control" placeholder="Email..." id="email" name="email">
-						</div>
-						
-						<div class="input-group form-group">				
-							<input type="text" class="form-control" placeholder="Nome completo..." id="email" name="nome">
-                        </div>
-                        						
-						<div class="form-group contact-form">
-							<input type="submit" value="CONFERMA" class="btn btn-primary">
-						</div>
-						
-					</form>
-				</div>
-				
 			</div>
 		</div>
-	</div>
-    
+
+	</section>
+	
+	<footer>
+		<div class="footer"> 
+	
+			<div class="footer-line">
+				<div class="footer-content">
+	
+					<div id="information">
+						<label for="exampleFormControlInput1">
+							<dt>PER CONOSCERCI MEGLIO</dt>
+						</label>
+	
+						<p class="left-information">
+							Questo &egrave un blog.
+							Troverai articoli recenti e nel caso vorrai cercare articoli di una specifica categoria,
+							verrai reindirizzato sui siti dei pi&ugrave famosi giornali.
+						</p>
+						
+	
+						<a href="#" class="fa fa-facebook"></a> 
+						<a href="#" class="fa fa-twitter"></a> 
+						<a href="#" class="fa fa-linkedin"></a>
+						<a href="#" class="fa fa-instagram"></a>
+					</div>
+	
+					<div id="contacts">
+						<label for="exampleFormControlInput1"><dt>INFO SU ilmioblog.it</dt></label>
+						<ul>
+							<li>Semplice da usare</li>
+							<li>Affidabile</li>
+							<li>Minimale</li>
+						</ul>
+					</div>
+	
+					<div id="contact-us">
+	
+						<form action="mailto:example@gmail.com" method="POST">
+							<div class="form-group form-footer-st" style="width: 100%;">
+								<label for="exampleFormControlInput1"><dt>VUOI SAPERE ALTRO?</dt></label> <input type="email" class="form-control form-footer-st"
+									id="exampleFormControlInput1" placeholder="nome@esempio.com">
+							</div>
+	
+							<div class="form-group form-footer-st" style="width: 100%;">
+								<textarea class="form-control form-footer-st" id="exampleFormControlTextarea1"
+									rows="3" placeholder="Scrivi il tuo messaggio"></textarea>
+							</div>
+						</form>
+	
+					</div>
+	
+				</div>
+			</div>
+	
+			<div class="footer-celebration">
+				<p>&copy 2020 Design by Labanca Nicola</p>
+				<p id="logo">
+					<img src='./logo-icon.png' width="35" height="35">
+				</p>
+			</div>
+		</div>
+	</footer>
+
 </body>
 </html>
