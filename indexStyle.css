@@ -14,7 +14,6 @@ html{
 }
 
 body{
-	max-height: 100vh;
 	background-color: #f8f9fa;
 }
 
@@ -22,6 +21,7 @@ section{
     display: block;
 	position: relative;
 	background-color: #fff;
+	min-height: 100vh;
 }
 
 h1.title{
@@ -76,6 +76,10 @@ article:hover{
 
 .right article:hover{
 	cursor: default;
+}
+
+footer{
+	width: 100%;
 }
 
 ul{
