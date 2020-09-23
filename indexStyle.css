@@ -14,30 +14,43 @@ html{
 }
 
 body{
-	min-height: 100vh;
+	max-height: 100vh;
+	background-color: #f8f9fa;
 }
 
 section{
     display: block;
-    position: relative;
+	position: relative;
+	background-color: #fff;
 }
 
 h1.title{
     font-size: 2rem;
     margin: 5% 0 0 3%;
     color: #8a8a8a;
-    display: inline-block;
+    display: block;
+}
+
+.most-clicked{
+	color: #000;
+}
+
+.most-clicked:hover{
+	text-decoration: none;
+	transform: scale(1.01);
 }
 
 p#date{
-    display: inline;
-    margin-left: .5%;
-    font-size: 2rem;
+    display: block;
+    margin: 0 0 0 3%;
+	font-size: 1.75rem;
+	font-weight: 500;
     color: #8a8a8a;
 }
 
 article:hover{
-    transform: scale(1.01);
+	transform: scale(1.01);
+	cursor: pointer;
 }
 
 .card{
@@ -61,6 +74,10 @@ article:hover{
     margin-top: 1.5%;
 }
 
+.right article:hover{
+	cursor: default;
+}
+
 ul{
     text-decoration: none;
     list-style: none;
@@ -70,6 +87,7 @@ ul{
 	max-width: 98rem;
 	margin: 0 auto;
 	padding: 0 2.2rem;
+	height: max-content;
 }
 
 a.nav-blog-link{
@@ -82,8 +100,9 @@ header{
 	top: 0;
 	z-index: 1400;
 	width: 100%;
-	height: 5.4 rem;
+	height: 4.4rem;
 	background-color: rgba(0, 0, 0, .8);
+	box-shadow: 0 4px 5px -2px gray;
 	background-filter: blur(2rem);
 }
 
@@ -91,6 +110,7 @@ header{
 	list-style: none;
 	display: flex;
 	align-items: center;
+	vertical-align: middle;
 	justify-content: space-between;
 	margin: 0 -1rem;
 }
@@ -101,7 +121,7 @@ header{
 
 a.nav-blog-link:hover{
     text-decoration: none;
-    color: #c1c1c1;
+	color: #c1c1c1;
 }
 
 a.nav-blog-link{
@@ -118,13 +138,7 @@ a.nav-blog-link:hover{
 .nav-link-blog{
 	width: 3rem;
 	height: 4.4rem;
-	background: url('..//image/icons/earrow-logo-icon.png') center no-repeat;
-}
-
-.nav-blog-link-search{
-	width: 1.6rem;
-	height: 4.4rem;
-	background: url('..//image/icons/search.svg') center no-repeat;
+	background: url('./logo-icon.png') center no-repeat;
 }
 
 .nav-blog-list-larger .nav-blog-item a.nav-blog-link{
