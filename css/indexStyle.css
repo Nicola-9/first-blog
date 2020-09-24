@@ -31,7 +31,8 @@ p#date{
     color: #8a8a8a;
 }
 
-article:hover{
+article:hover,
+aside:hover{
 	transform: scale(1.01);
 	cursor: pointer;
 }
@@ -110,13 +111,15 @@ footer{
 	width: 100%;
 }
 
-.fa{
+.fa-ext-link,
+.fa-most-click{
     font-size: 1.5rem !important;
     padding: 0 !important;
     width: 10% !important;
 }
 
-.fa:hover{
+.fa-ext-link:hover,
+.fa-most-click:hover{
     color: #0056b3 !important;
 }
 
@@ -149,7 +152,7 @@ h2.card-title-right{
     h5.article-title{
         display: block !important;
     }
-    
+
     p.paragraph-carousel{
         display: none !important;
     }

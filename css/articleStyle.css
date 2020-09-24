@@ -30,3 +30,9 @@ article{
 footer{
 	width: 100%;
 }
+
+@media (max-width: 1058px){
+    section{
+        margin-top: 6.5rem;
+    }
+}
