@@ -65,3 +65,34 @@ article:hover{
 footer{
 	width: 100%;
 }
+
+@media (max-width: 993px){
+    h1.title{
+        margin: 9% 0 0 3%;
+    }
+}
+
+@media (max-width: 767px){
+    .right{
+        display: none;
+    }
+}
+
+
+@media (max-width: 533px){
+    h1.title{
+        margin: 11% 0 0 3%;
+    }
+}
+
+@media (max-width: 415px){
+    h1.title{
+        margin: 13% 0 0 3%;
+    }
+}
+
+@media (max-width: 370px){
+    h1.title{
+        margin: 15% 0 0 3%;
+    }
+}

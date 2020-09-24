@@ -108,3 +108,9 @@ h4{
 	background: #125688;
 	color: white;
 }
+
+@media (max-width: 998px){
+	.footer-content{
+    	grid-template-columns: auto;
+	}	
+}
