@@ -2,21 +2,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="./logo-icon.png">
+
+    <title>Il mio blog</title>
+
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     
-    <link rel="stylesheet" href="navStyle.css">
-    <link rel="stylesheet" href="articleStyle.css">
-    <link rel="stylesheet" href="footerStyle.css">
-
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <title>Articolo</title>
+   
+    <!-- My CSS -->
+    <link rel="stylesheet" href="navStyle.css">
+    <link rel="stylesheet" href="indexStyle.css">
+    <link rel="stylesheet" href="articlesList.css">
+    <link rel="stylesheet" href="footerStyle.css">
 </head>
     <body>
         <header>
             <div class="navblog-container">
                     <nav class="blog-nav">
-
                         <ul class="nav-blog-list nav-blog-list-mobile">
 
                             <li class="nav-blog-item"><a href="./index.html"
@@ -30,7 +36,7 @@
             
                             </li>
                         </ul>
-                        
+
                         <ul class="nav-blog-list nav-blog-list-larger">
             
                             <li class="nav-blog-item nav-blog-item-hidden">
@@ -55,36 +61,86 @@
                     </nav>
                 </div>
         </header>
-        
+
         <section>
-            <article>    
-                <h1 style="font-size: x-large; color: #0056b3; margin-bottom: 1rem; margin-left: 2.5%;">Il caso dell'articolo fantasma citato 400 volte</h1>
-
-                <article class="card border-0 shadow">
-                    <div class="card-body">
-                        <p>
-
-                            Un articolo scientifico è salito agli onori della cronaca per aver ricevuto quasi 400 citazioni in altrettanti studi. C'è un solo problema: non è mai stato scritto. La vicenda della fonte bibliografica fantasma è stata notata la prima volta da Pieter Kroonenberg, professore emerito di Statistica dell'Università di Leida, Olanda, e risolta dalla collega Anne-Wil Harzing (che ne ha scritto in questo post).
-                            <br>
-                            Sfogliando il manuale di stile destinato agli autori dell'editore scientifico Elsevier, Kroonenberg ha trovato la citazione:
-                            <br>
-                            "Van der Geer, J., Hanraads, J.A.J., Lupton, R.A., 2000. The art of writing a scientific article. Journal of Science Communications 163 (2) 51-59".
-                            <br>
-                            Qualcosa gli è sembrato da subito strano: conosceva un John Van de Geer, ma non sapeva che oltre ad essere un esperto di psicologia sperimentale desse anche lezioni sull'arte di scrivere articoli scientifici. Poi si è accorto dell'errore di spelling: il suo collega si chiama Van de Geer e non Van der Geer, come indicato nella citazione. E poi, la rivista: esiste un Journal of Science Communication, ma si scrive senza la "s" finale.
-                            <br>
-                            Dopo avere cercato invano il "paper" si è accorto che non esisteva. Ciò nonostante, dalle ricerche su Google Scholar risultava citato in quasi 400 altri articoli (soprattutto di Paesi con poca dimestichezza con la lingua inglese). Come era stato possibile?
-                            <br>
-                            La spiegazione è semplice e disarmante: quello sulla guida dell'editore Elsevier era un esempio, un facsimile di citazione bibliografica da usare come modello a cui uniformare le proprie. Gli autori distratti l'hanno copiato e incollato nella bibliografia per imitarne la formattazione, e poi si sono dimenticati di toglierlo. Il caso è stato diffuso come esempio della poca accuratezza - anche in termini di editing - di alcune pubblicazioni scientifiche.
-                        <br>
-                        <br>
-
-                            Ogni normale scienziato si accontenterebbe di raggiungere anche uno solo di questi risultati nell'intera carriera. Per Einstein, invece, era solo l'inizio.
-                        </p>                    
+                <div class="title">
+                    <h1 class="title">ARTICOLI SCIENTIFICI</h1>
+                </div>
+                
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 articles">
+                            <div class="article1">
+                                <article>     
+                                    <article class="card border-0 shadow">
+                                        <div class="card-body">
+                                            <h2 style="font-size: x-large; color: #0056b3; margin-bottom: 1rem;">Il caso dell'articolo fantasma citato 400 volte</h2>
+                                            <p>
+                                                Un articolo scientifico è salito agli onori della cronaca per aver ricevuto quasi 400 citazioni in altrettanti studi. 
+                                                <br>
+                                                C'è un solo problema: non è mai stato scritto. 
+                                                <br>
+                                                La vicenda della fonte bibliografica fantasma è stata notata la prima volta da Pieter Kroonenberg, 
+                                                <br>
+                                                professore emerito di Statistica dell'Università di Leida, Olanda, e risolta dalla collega Anne-Wil Harzing. 
+                                            </p>
+                
+                                            <a href="./articlePage1.html" class="small link">
+                                                Scopri di più >
+                                            </a>
+                                            
+                                        </div>
+                                    </article>
+                                </article>
+                
+                                <article>                
+                                    <article class="article2 card border-0 shadow">
+                                        <div class="card-body">
+                                            <h2 style="font-size: x-large; color: #0056b3; margin-bottom: 1rem;">8 articoli scientifici rifiutati prima del Nobel</h2>
+                        
+                                            <p>
+                                                Per uno scienziato al lavoro da anni sugli stessi dati, ci sono poche cose più frustranti di vedersi respingere un articolo da una rivista importante. 
+                                                <br>
+                                                Ma la peer review ("revisione paritaria"), cioè il processo di valutazione e correzione che precede la pubblicazione di una ricerca, 
+                                                <br>
+                                                è parte fondamentale del processo e del progresso scientifico, e - quasi sempre - garanzia di correttezza e imparzialità.
+                                            </p>
+                
+                                            <a href="./articlePage2.html" class="small link">
+                                                Scopri di più >
+                                            </a>
+                                            
+                                        </div>
+                                    </article>
+                                </article>
+                
+                                <article>                
+                                    <article class="article3 card border-0 shadow">
+                                        <div class="card-body">
+                                            <h2 style="font-size: x-large; color: #0056b3;margin-bottom: 1rem;">Il 1905, l'anno d'oro di Albert Einstein</h2>
+                        
+                                            <p>
+                                                In pochi avrebbero scommesso sul fatto che quello sarebbe divenuto l'anno di svolta non solo per la sua carriera, 
+                                                ma per la storia della fisica. 
+                                                <br>
+                                                In quei 12 mesi lo scienziato avrebbe pubblicato quattro articoli accademici rivoluzionari, 
+                                                <br>
+                                                ben illustrati in questo TED-Ed, la versione educational delle conferenze TED.
+                                            </p>
+                
+                                            <a href="./articlePage.html" class="small link">
+                                                Scopri di più >
+                                            </a>
+                                            
+                                        </div>
+                                    </article>
+                                </article>
+                            </div>
+                        </div>
                     </div>
-                </article>
-            </article>
+                </div>         
         </section>
-    
+
         <footer>
             <div class="footer"> 
         

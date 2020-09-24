@@ -17,6 +17,21 @@
 	<header>
 		<div class="navblog-container">
 				<nav class="blog-nav">
+
+					<ul class="nav-blog-list nav-blog-list-mobile">
+
+						<li class="nav-blog-item"><a href="./index.html"
+							class="nav-blog-link nav-link-blog"></a></li>
+
+						<li class="nav-blog-item">
+		
+							<div class="mobile-blog-menu">
+								<span class="line line-top"></span> <span class="line line-bottom"></span>
+							</div>
+		
+						</li>
+					</ul>
+					
 					<ul class="nav-blog-list nav-blog-list-larger">
 		
 						<li class="nav-blog-item nav-blog-item-hidden">
@@ -43,12 +58,16 @@
 	</header>
 
 	<section>
-
-		<img class="logo-img" src="./email-image.png">
 		<div class="content">
 			<div class="d-flex justify-content-center h-100">
 				<div class="card">
 					<div class="card-header">
+						<div class="d-flex align-items-left justify-content-start icon">
+							<span>
+								<img src='./email-image.png' width="110" height="100">
+							</span>
+						</div>
+
 						<h3>Contattaci</h3>
 					</div>
 					
@@ -137,5 +156,12 @@
 		</div>
 	</footer>
 
+	<script type="text/javascript">
+		const selectElement = (element) => document.querySelector(element);
+
+		selectElement('.mobile-blog-menu').addEventListener("click", () => {
+			selectElement('header').classList.toggle('active');
+		});
+	</script>
 </body>
 </html>

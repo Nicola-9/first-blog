@@ -3,7 +3,7 @@
 section{
     display: block;
 	position: relative;
-	background-color: #fff;
+	background-color: #f8f9fa;
 	min-height: 100vh;
 }
 
@@ -37,9 +37,13 @@ article:hover{
 }
 
 .card{
-    margin-top: 3%;
 	min-width: 100%;
-	border-radius: .75rem !important;
+    border-radius: .75rem !important;
+    margin-bottom: 1.5%;
+}
+
+.articles{
+    margin-top: 1.5%;
 }
 
 .card-body{
@@ -47,14 +51,34 @@ article:hover{
     font-size: 1.5rem;
 }
 
+.container{
+    margin: 0 !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+    text-align: center;
+    text-align: -moz-center;
+}
+
+.row{
+    width: 100% !important;
+}
+
 .col-md-9{
     display: inline-block;
 }
 
 .right{
-    float: right;
-    width: 20%;
-    margin-right: 3%;
+    width: 100%;
+    height: 50%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.row-right{
+    height: 50%;
+}
+
+.right-div{
     margin-top: 1.5%;
 }
 
@@ -62,8 +86,51 @@ article:hover{
 	cursor: default;
 }
 
+.carousel{
+    height: 100% !important;
+}
+
+.carousel-inner{
+    border-radius: .75rem !important;
+}
+
+.img-carousel{
+    height: calc(100vh - 15rem) !important;
+}
+
+.article-title{
+    font-size: 2.25rem;
+}
+
+.paragraph-carousel{
+    font-size: 1.5rem;
+}
+
 footer{
 	width: 100%;
+}
+
+.fa{
+    font-size: 1.5rem !important;
+    padding: 0 !important;
+    width: 10% !important;
+}
+
+.fa:hover{
+    color: #0056b3 !important;
+}
+
+h2.card-title-right{
+    text-align: center;
+    font-size: x-large; 
+    color: #0056b3; 
+    margin-bottom: 5%;
+}
+
+@media (max-width: 1206px){
+    h1.title{
+        margin: 6% 0 0 5%;
+    }
 }
 
 @media (max-width: 993px){
@@ -72,27 +139,62 @@ footer{
     }
 }
 
-@media (max-width: 767px){
-    .right{
-        display: none;
+@media (max-width: 986px){
+    h1.title{
+        margin: 9% 0 0 6%;
     }
 }
 
+@media (max-width: 689px){
+    h5.article-title{
+        display: block !important;
+    }
+    
+    p.paragraph-carousel{
+        display: none !important;
+    }
+}
+
+@media (max-width: 689px){
+    .img-carousel{
+        height: calc(100vh - 30rem) !important;
+    }
+
+    .carousel{
+        height: calc(100vh - 30rem) !important;
+    }
+}
+
+@media (max-width: 460px){
+    .img-carousel{
+        height: calc(100vh - 30rem) !important;
+    }
+
+    .carousel{
+        height: calc(100vh - 30rem) !important;
+    }
+}
+
+@media (max-width: 626px){
+    h1.title{
+        margin: 9% 0 0 7%;
+    }
+}
 
 @media (max-width: 533px){
     h1.title{
-        margin: 11% 0 0 3%;
+        margin: 11% 0 0 8%;
     }
 }
 
 @media (max-width: 415px){
     h1.title{
-        margin: 13% 0 0 3%;
+        margin: 13% 0 0 9%;
     }
 }
 
 @media (max-width: 370px){
     h1.title{
-        margin: 15% 0 0 3%;
+        margin: 15% 0 0 10%;
     }
 }
