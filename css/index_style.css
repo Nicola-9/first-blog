@@ -97,6 +97,7 @@ aside:hover{
 
 .img-carousel{
     height: calc(100vh - 15rem) !important;
+    object-fit: cover;
 }
 
 .article-title{
@@ -148,6 +149,14 @@ h2.card-title-right{
     }
 }
 
+@media (max-width: 730px){
+    .einstein-image{
+        object-fit: cover;
+        object-position: -.05% 0;
+        height: 100%;
+    }
+}
+
 @media (max-width: 689px){
     h5.article-title{
         display: block !important;
@@ -181,6 +190,14 @@ h2.card-title-right{
 @media (max-width: 626px){
     h1.title{
         margin: 9% 0 0 7%;
+    }
+}
+
+@media (max-width: 558px){
+    .einstein-image{
+        object-fit: cover;
+        object-position: -.05% 0;
+        height: 100%;
     }
 }
 

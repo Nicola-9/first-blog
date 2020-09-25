@@ -89,3 +89,20 @@ footer{
         margin-top: 6.5rem;
     }
 }
+
+@media (max-width: 991px){
+    .row-right{
+        margin-top: 1.5%;
+    }
+
+    .right{
+        width: 100%;
+        margin: .5%;
+        margin-bottom: 5%;
+    }
+
+    aside aside{
+        margin-right: 15px;
+        margin-left: 15px; 
+    }
+}
