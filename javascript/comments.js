@@ -2,7 +2,32 @@
 // without session storage
 
 $(document).ready(function () {
-    let commentsArray = [];
+    var commentsArray = [];
+
+    if(sessionStorage.getItem("comments")){
+        commentsArray = JSON.parse(sessionStorage.getItem("comments"));
+
+        $('.comments-empty').remove();
+        $('ul.comments-list').remove();
+        let commentsList = '<ul class="comments-list"></ul>';
+        $('#comments-div').append(commentsList);
+
+        for(let i=0; i < commentsArray.length; i++){
+            let elem = commentsArray[i];
+
+            commentsList = $('ul.comments-list');
+
+            let newComment = '<li id="comment-item-' + (i + 1) +
+                                '"><p class="comment">' +
+                                    '<strong>' +
+                                        elem.name + ':' +
+                                    '</strong><br>' +
+                                    elem.comment +
+                                '</p></li>';
+        
+            commentsList.append(newComment);
+        }
+    }
 
     $('.submit-comment').on('click', () => {
         let comment = $('.text-area-comment').val();
@@ -41,6 +66,16 @@ $(document).ready(function () {
 
         $(selectorItem).effect('highlight', { color: "#f4f4f4" }, 2500);
 
-        commentsArray.push(comment);
+        let commentObj = {
+            name: userNameComment, 
+            comment: comment
+        };
+
+        console.log(commentsArray);
+
+        commentsArray.push(commentObj);
+
+        sessionStorage.clear();
+        sessionStorage.setItem('comments', JSON.stringify(commentsArray));
     });
 });
