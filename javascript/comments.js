@@ -31,7 +31,6 @@ $(document).ready(function () {
 
             $(selectorItem + ' .comment').css({
                 'padding': '.5rem 0 .5rem 1%',
-                "border-bottom": "1px solid #f4f4f4",
                 "text-transform": "capitalize"
             });
         }
@@ -71,9 +70,9 @@ $(document).ready(function () {
             "text-align": "end",
             "display": "inline-block",
             "height": "100%",
-            "border-bottom": "1px solid #f4f4f4",
             "width": "54.5%",
             'padding': '.5rem 0 .5rem 1%',
+            "vertical-align": "top"
         });
 
         let date = new Date();
@@ -92,13 +91,59 @@ $(document).ready(function () {
         $('.like').css({
             "padding": "0",
             "margin-left": "1%",
-            "color": "green"
+            "color": "#c1c1c1"
+        });
+
+        $('.like').mouseover(() => {
+            $('.like').css({
+                "color": "green",
+                "cursor": "pointer"
+            });
+        });
+
+        $('.like').mouseout(() => {
+            if(!($('like').data('clicked'))){
+                $('.like').css({
+                    "color": "#c1c1c1",
+                    "cursor": "default"
+                });
+            }
+        });
+
+        $('.like').click(() => {
+            $('.like').data('clicked', true);
+            $('.like').css({
+                "color": "green"
+            });
         });
 
         $('.unlike').css({
             "padding": "0",
             "margin-left": "1%",
-            "color": "red"
+            "color": "#c1c1c1"
+        });
+
+        $('.unlike').click(() => {
+            $('.unlike').data('clicked', true);
+            $('.unlike').css({
+                "color": "red"
+            });
+        });
+
+        $('.unlike').mouseover(() => {
+            $('.unlike').css({
+                "color": "red",
+                "cursor": "pointer"
+            });
+        });
+
+        $('.unlike').mouseout(() => {
+            if(!($('.unlike').data('clicked'))){
+                $('.unlike').css({
+                    "color": "#c1c1c1",
+                    "cursor": "default"
+                });
+            }
         });
 
         $('#date-identifier-' + (commentsArray.length + 1) + ' span').css({
@@ -112,10 +157,13 @@ $(document).ready(function () {
 
         $(selectorItem + ' .comment').css({
             'padding': '.5rem 0 .5rem 1%',
-            "border-bottom": "1px solid #f4f4f4",
             "text-transform": "capitalize",
             "width": "45%",
             "display": "inline-block"
+        });
+
+        $(selectorItem).css({
+            "border-bottom": "1px solid #f4f4f4",
         });
 
         $(selectorItem).effect('highlight', { color: "#f4f4f4" }, 2500);
