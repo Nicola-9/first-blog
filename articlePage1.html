@@ -100,10 +100,13 @@
                                                     </p>
                                                 </div>
 
+                                                <div class="input-group form-group">				
+                                                    <input type="text" class="name-comment-input form-control" placeholder="Il tuo nome" id="name" name="name">
+                                                </div>   
                                                 <div class="comment-inp input-group form-group">				
                                                     <textarea class="text-area-comment form-control" placeholder="Scrivi qui il tuo commento..." id="exampleFormControlTextarea1" rows="2"></textarea>
                                                 </div>
-                                                                        
+                                                                     
                                                 <div class="btn-div-comment form-group contact-form">
                                                     <input type="submit" value="COMMENTA" class="submit-comment btn btn-primary">
                                                 </div>
@@ -199,9 +202,11 @@
 
                 $('.submit-comment').on('click', () =>{
                     let comment = $('.text-area-comment').val();
+                    let userNameComment = $('.name-comment-input').val();
                     let commentsList;
 
                     $('.text-area-comment').val("");
+                    $('.name-comment-input').val("");
                     
                     if(!commentsArray.length > 0){
                         commentsList = '<ul class="comments-list"></ul>';
@@ -212,16 +217,22 @@
 
                     commentsList = $('ul.comments-list');
 
-                    let newComment = '<li id="comment-item-' + (commentsArray.length + 1) + '"><p class="comment">' +
-                                        comment + 
-                                     '</p></li>';
+                    let newComment = '<li id="comment-item-' + (commentsArray.length + 1) + 
+                                        '"><p class="comment">' + 
+                                                '<strong>' +
+                                                    userNameComment + ':' +
+                                                '</strong><br>' +
+                                                comment + 
+                                        '</p></li>';
                     
                     commentsList.append(newComment);
 
                     let selectorItem = '#comment-item-' + (commentsArray.length + 1);
 
                     $(selectorItem + ' .comment').css({
-                        'padding': '.5rem 0 .5rem 1%'
+                        'padding': '.5rem 0 .5rem 1%',
+                        "border-bottom": "1px solid #f4f4f4",
+                        "text-transform": "capitalize"
                     });
 
                     $(selectorItem).effect('highlight', {color: "#f4f4f4"}, 2500);
