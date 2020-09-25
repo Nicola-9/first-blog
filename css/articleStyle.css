@@ -24,7 +24,55 @@ section{
 }
 
 article{
-    margin: 1.5%;
+    margin: .5%;
+    margin-top: 0;
+}
+
+.container{
+    margin: 0 !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+}
+
+.right{
+    margin: 0 auto;
+    width: 80%;
+}
+
+.colums{
+    align-items: center;
+    text-align: center;
+    text-align: -moz-center;
+}
+
+.text-area-comment{
+    resize: none !important;
+    font-size: 1.5rem;
+}
+
+.comment-inp{
+    font-size: 1.5rem;
+    height: 100% !important;
+}
+
+.btn{
+    margin: 0 auto !important;
+    font-size: 1.5rem !important;
+    width: 100%;
+    padding: .25rem .25rem !important;
+}
+
+.btn-div-comment{
+    text-align: center !important;
+}
+
+.card-title-right{
+    margin-left: 1%;
+}
+
+.comments-empty,
+#comments-div{
+    margin: 2rem 0 3rem 1%;
 }
 
 footer{
