@@ -81,14 +81,24 @@ $(document).ready(function () {
         let spanDate = '<span id="date-' + (commentsArray.length + 1) + '">' + date.toLocaleDateString() + ', ' +
                         date.getHours() + ":" + date.getMinutes() + '</span>' +
                         '<i class="like fa fa-thumbs-up" aria-hidden="true"></i>';
-        let spanIdentifier = '<span>' + getThreeCharRandom() + '</span>';
+        let spanIdentifier = '<span>' + 
+                            getThreeCharRandom() +  
+                            '</span>' +
+                            '<i class="unlike fa fa-thumbs-down" aria-hidden="true"></i>';
 
         $('#date-identifier-' + (commentsArray.length + 1)).append(spanDate);
         $('#date-identifier-' + (commentsArray.length + 1)).append(spanIdentifier);
 
         $('.like').css({
             "padding": "0",
-            "margin-left": "1%"
+            "margin-left": "1%",
+            "color": "green"
+        });
+
+        $('.unlike').css({
+            "padding": "0",
+            "margin-left": "1%",
+            "color": "red"
         });
 
         $('#date-identifier-' + (commentsArray.length + 1) + ' span').css({
