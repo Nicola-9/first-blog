@@ -1,8 +1,9 @@
-function Article(title, bodyText, public, featured){
+function Article(title, bodyText, public, featured, tag){
     this.title = title;
     this.bodyText = bodyText;
     this.public = public;
     this.featured = featured;
+    this.tag = tag;
 
     this.getTitle = () =>{
         return this.title;
@@ -35,4 +36,12 @@ Article.prototype.isFeatured = function(){
 
 Article.prototype.setFeatured = function(featured){
     this.featured = featured;
+};
+
+Article.prototype.getTag = function(){
+    return this.tag;
+};
+
+Article.prototype.setTag = function(tag){
+    this.tag = tag;
 };

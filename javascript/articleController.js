@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () =>{
     addArticleBtn.addEventListener('click', () =>{
         let articleTitle = document.querySelector('.title-article-input').value;
         let articleBody = document.querySelector('.body-text-article').value;
+        let tags = document.querySelector('.tag-article').value;
 
         let radios = document.getElementsByName('inlineRadioOptions');
         let isPublic = false;
@@ -87,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 
         console.log(isPublic);
 
-        let articleToAdd = new Article(articleTitle, articleBody, isPublic, featured);
+        let articleToAdd = new Article(articleTitle, articleBody, isPublic, featured, tags);
         articlesArray.push(articleToAdd);
 
         console.log("Added new article object to local articles array -> " + articlesArray.toString());
@@ -126,6 +127,7 @@ function createNewArticle(articleObj){
     let articleCard = document.createElement('div');
     let articleTitle = document.createElement('h2');
     let articleBody = document.createElement('p');
+    let articleFooter = document.createElement('div');
 
     articleElement.className += " article-list-item article card border-0 shadow";
     articleCard.classList.add("card-body");
@@ -142,6 +144,18 @@ function createNewArticle(articleObj){
     // Append elements
     articleCard.appendChild(articleTitle);
     articleCard.appendChild(articleBody);
+
+    if(articleObj.getTag() !== null){
+        let tag = articleObj.tag;
+
+        articleFooter.className += "card-footer text-muted";
+        articleFooter.textContent = tag;
+
+        articleFooter.style.backgroundColor = "#fff";
+
+        articleCard.appendChild(articleFooter);
+    }
+
     articleElement.appendChild(articleCard);
 
     return articleElement;
