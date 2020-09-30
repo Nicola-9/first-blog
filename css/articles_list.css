@@ -28,14 +28,31 @@
     margin-bottom: 1%;
 }
 
+.form-check,
+.form-check-input,
+label{
+    font-size: 1.5rem;
+}
+
+#featured-article{
+    margin-top: .5rem !important;
+}
+
+.badge{
+    font-size: 1.25rem;
+    background-color: #0069d9;
+    padding-top: .5%;
+    padding-bottom: .5%;
+}
+
 @media (max-width: 608px){
-    h1.title{
-        margin: 10% 0 0 7%;
+    body{
+        margin-top: 10%;
     }
 }
 
 @media (max-width: 510px){
-    h1.title{
-        margin: 12% 0 0 9%;
+    body{
+        margin-top: 12%;
     }
 }
