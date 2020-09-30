@@ -2,6 +2,7 @@
 
 .btn{
     font-size: 1.5rem !important;
+    z-index: 1000 !important;
 }
 
 .modal-title,
