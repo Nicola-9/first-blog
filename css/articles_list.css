@@ -1,5 +1,32 @@
 @charset "UTF-8";
 
+.btn{
+    font-size: 1.5rem !important;
+}
+
+.modal-title,
+.modal-header,
+.close-modal{
+    font-size: 1.75rem !important;
+}
+
+.body-text-article{
+    resize: none !important;
+    font-size: 1.5rem;
+}
+
+.title-article-input{
+    font-size: 1.5rem;
+    height: 100% !important;
+}
+
+.modal-btn-article{
+    position: relative;
+    float: right;
+    font-size: 1.5rem;
+    margin-bottom: 1%;
+}
+
 @media (max-width: 608px){
     h1.title{
         margin: 10% 0 0 7%;
