@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" href="./utilities/images/logo-icon.png">
+    <link rel="icon" href="../contents/images/logo-icon.png">
 
     <title>Il mio blog</title>
 
@@ -14,10 +14,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    
     <!-- My CSS -->
-    <link rel="stylesheet" href="./css/nav_style.css">
-    <link rel="stylesheet" href="./css/index_style.css">
-    <link rel="stylesheet" href="./css/articles_list.css">
-    <link rel="stylesheet" href="./css/footer_style.css">
+    <link rel="stylesheet" href="../contents/css/nav_style.css">
+    <link rel="stylesheet" href="../contents/css/index_style.css">
+    <link rel="stylesheet" href="../contents/css/articles_list.css">
+    <link rel="stylesheet" href="../contents/css/footer_style.css">
 </head>
     <body>
         <header>
@@ -25,7 +25,7 @@
                     <nav class="blog-nav">
                         <ul class="nav-blog-list nav-blog-list-mobile">
 
-                            <li class="nav-blog-item"><a href="./index.html"
+                            <li class="nav-blog-item"><a href="../index.html"
                                 class="nav-blog-link nav-link-blog"></a></li>
 
                             <li class="nav-blog-item">
@@ -40,10 +40,10 @@
                         <ul class="nav-blog-list nav-blog-list-larger">
             
                             <li class="nav-blog-item nav-blog-item-hidden">
-                                <a href="./index.html" class="nav-blog-link nav-link-blog"></a>
+                                <a href="../index.html" class="nav-blog-link nav-link-blog"></a>
                             </li>
 
-                            <li class="nav-blog-item"><a href="./scientific_articles_list.html"
+                            <li class="nav-blog-item"><a href="scientific_articles_list.html"
                                 class="nav-blog-link">Articoli scientifici</a></li>
             
                             <li class="nav-blog-item"><a href="https://www.ilfattoquotidiano.it/" target="_blank"
@@ -55,7 +55,7 @@
                             <li class="nav-blog-item"><a href="https://www.gazzetta.it/" target="_blank"
                                 class="nav-blog-link">Articoli sportivi</a></li>
             
-                            <li class="nav-blog-item"><a href="./contact_us.html"
+                            <li class="nav-blog-item"><a href="../contact_us.html"
                                 class="nav-blog-link">Contattaci</a></li>
                         </ul>
                     </nav>
@@ -133,7 +133,7 @@
                 <div class="footer-celebration">
                     <p>&copy 2020 Design by Labanca Nicola</p>
                     <p id="logo">
-                        <img src='./images/logo-icon.png' width="35" height="35">
+                        <img src='../contents/images/logo-icon.png' width="35" height="35">
                     </p>
                 </div>
             </div>
@@ -178,8 +178,10 @@
                             </div>
                           </div>
                     </div>
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
                         <button type="button" id="add-article-modal" class="btn btn-primary add-article-modal">Aggiungi</button>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -193,9 +195,17 @@
         
         <!-- My scripts -->
         <script src="./controllers/navbar.js"></script>
-        <script src="./controllers/articlesNumber.js"></script>
-        <script src="./models/Article.js"></script>
-        <script src="./utilities/randomArticles.js"></script>
-        <script src="./controllers/articleController.js"></script>
+        <script type="text/javascript" src="../models/Article.js"></script>
+        <script type="text/javascript" src="../helpers/randomArticles.js"></script>
+        <script type="text/javascript" src="../controllers/ArticleController.js"></script>
+        
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', () =>{
+                let articleController = new ArticleController();
+
+                articleController.initializeArticlesDOMElement();
+                articleController.setAddArticleListener();
+            });
+        </script>
     </body>
 </html>

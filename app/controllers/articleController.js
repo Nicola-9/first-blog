@@ -1,162 +1,149 @@
-// Override array method toString()
-Array.prototype.toString = function(){
-    let str = "";
-
-    for(let i in this){
-        str += "\n" + i + ". Title -> " + this[i].title;
+class ArticleController{
+    constructor(){
+        this.addArticleBtn = document.querySelector('#add-article-modal');
+        this.articlesContainer = document.querySelector('.article-list-item');
+        this.publicRadioElements = document.getElementsByName('inlineRadioOptions');
+        this.featuredCheck = document.querySelector('#featured-article');
+        this.articlesArray = getRandomArticles();
     }
 
-    return str;
-}
+    initializeArticlesDOMElement(){
+        this._initializePublicAndDraft();
 
-document.addEventListener('DOMContentLoaded', () =>{
-    let addArticleBtn = document.querySelector('#add-article-modal');
-    let articlesContainer = document.querySelector('.article-list-item');
-    let publicArticlesElement = document.createElement('div');
-    let draftArticlesElement = document.createElement('div');
-    let draftArticlesTitle = document.createElement('h1');
-    let publicArticlesTitle = document.createElement('h1');
+        for(let i in this.articlesArray){
+            let article = this._createNewArticle(this.articlesArray[i]);
 
-    publicArticlesElement.prepend(publicArticlesTitle);
-    draftArticlesElement.prepend(draftArticlesTitle);
+            if(this.articlesArray[i].isPublic()){
+                this.publicArticlesElement.appendChild(article);
+            } else{
+                this.draftArticlesElement.appendChild(article);
+            }
 
-    publicArticlesElement.classList.add("public");
-    draftArticlesElement.classList.add("draft");
-
-    publicArticlesTitle.textContent = "PUBBLICI";
-    publicArticlesTitle.style.float = "left";
-    publicArticlesTitle.style.marginLeft = "1%";
-    publicArticlesTitle.style.color = "#8a8a8a";
-    publicArticlesTitle.style.fontSize = "2rem";
-
-    draftArticlesTitle.textContent = "BOZZE";
-    draftArticlesTitle.style.float = "left";
-    draftArticlesTitle.style.marginLeft = "1%";
-    draftArticlesTitle.style.color = "#8a8a8a";
-    draftArticlesTitle.style.fontSize = "2rem";
-
-    let articlesArray = getRandomArticles();
-
-    console.log(articlesArray);
-
-    for(let i in articlesArray){
-        let article = createNewArticle(articlesArray[i]);
-
-        if(articlesArray[i].isPublic()){
-            publicArticlesElement.appendChild(article);
-        } else{
-            draftArticlesElement.appendChild(article);
+            if(this.publicArticlesElement.childNodes.length > 1){
+                this.articlesContainer.appendChild(this.publicArticlesElement);
+            }
+            if(this.draftArticlesElement.childNodes.length > 1){
+                this.articlesContainer.appendChild(this.draftArticlesElement);
+            }
         }
 
-        if(publicArticlesElement.childNodes.length > 1){
-            articlesContainer.appendChild(publicArticlesElement);
-        }
-        if(draftArticlesElement.childNodes.length > 1){
-            articlesContainer.appendChild(draftArticlesElement);
-        }
     }
 
-    let radiosElem = document.getElementsByName('inlineRadioOptions');
-    let featuredCheck = document.querySelector('#featured-article');
+    setAddArticleListener(){
+        this.addArticleBtn.addEventListener('click', () =>{
+            let articleTitle = document.querySelector('.title-article-input').value;
+            let articleBody = document.querySelector('.body-text-article').value;
+            let tags = document.querySelector('.tag-article').value;
 
-    for(let i in radiosElem){
-        radiosElem[i].onclick = () =>{
-            if(radiosElem[i].value !== "public")
-                featuredCheck.checked = false;
-            
-            featuredCheck.disabled = (radiosElem[i].value === "public") ? false : true;
-        };
-    }
+            let isPublic = false;
 
-    addArticleBtn.addEventListener('click', () =>{
-        let articleTitle = document.querySelector('.title-article-input').value;
-        let articleBody = document.querySelector('.body-text-article').value;
-        let tags = document.querySelector('.tag-article').value;
-
-        let radios = document.getElementsByName('inlineRadioOptions');
-        let isPublic = false;
-
-        let featured = document.querySelector('#featured-article').checked;
-
-        for(let i in radios){
-            if(radios[i].checked){
-                if(radios[i].value === "public"){
-                    isPublic = true;
+            for(let i in this.publicRadioElements){
+                if(this.publicRadioElements[i].checked){
+                    if(this.publicRadioElements[i].value === "public"){
+                        isPublic = true;
+                    }
                 }
             }
-        }
+            
+            let featured = this.featuredCheck.checked;
 
-        console.log(isPublic);
+            let articleToAdd = new Article(articleTitle, articleBody, isPublic, featured, tags);
+            this.articlesArray.push(articleToAdd);
 
-        let articleToAdd = new Article(articleTitle, articleBody, isPublic, featured, tags);
-        articlesArray.push(articleToAdd);
+            let newArticle = this._createNewArticle(articleToAdd);
 
-        console.log("Added new article object to local articles array -> " + articlesArray.toString());
-
-        let newArticle = createNewArticle(articleToAdd);
-
-        if(articleToAdd.isPublic()){
-            if(articleToAdd.featured){
-                let badgeFeatured = document.createElement('span');
-                badgeFeatured.className += "badge badge-secondary";
-                badgeFeatured.textContent = "In primo piano";
-                newArticle.prepend(badgeFeatured);
-                publicArticlesElement.insertBefore(newArticle, publicArticlesElement.children[1]);
-            } else {
-                publicArticlesElement.appendChild(newArticle);
+            if(articleToAdd.isPublic()){
+                if(articleToAdd.featured){
+                    let badgeFeatured = document.createElement('span');
+                    badgeFeatured.className += "badge badge-secondary";
+                    badgeFeatured.textContent = "In primo piano";
+                    newArticle.prepend(badgeFeatured);
+                    this.publicArticlesElement.insertBefore(newArticle, this.publicArticlesElement.children[1]);
+                } else {
+                    this.publicArticlesElement.appendChild(newArticle);
+                }
+            } else{
+                this.draftArticlesElement.appendChild(newArticle);
             }
-        } else{
-            draftArticlesElement.appendChild(newArticle);
-        }
 
-        if(publicArticlesElement.childNodes.length > 1){
-            articlesContainer.appendChild(publicArticlesElement);
-        }
-        if(draftArticlesElement.childNodes.length > 1){
-            articlesContainer.appendChild(draftArticlesElement);
-        }
+            if(this.publicArticlesElement.childNodes.length > 1){
+                this.articlesContainer.appendChild(this.publicArticlesElement);
+            }
+            if(this.draftArticlesElement.childNodes.length > 1){
+                this.articlesContainer.appendChild(this.draftArticlesElement);
+            }
 
-        $('#modal-add-article').modal('hide');
+            $('#modal-add-article').modal('hide');
 
-        window.scrollTo(0, newArticle.clientHeight + 15);
-    });
-});
-
-function createNewArticle(articleObj){
-    let articleElement = document.createElement('article');
-    let articleCard = document.createElement('div');
-    let articleTitle = document.createElement('h2');
-    let articleBody = document.createElement('p');
-    let articleFooter = document.createElement('div');
-
-    articleElement.className += " article-list-item article card border-0 shadow";
-    articleCard.classList.add("card-body");
-    articleTitle.style.fontSize = "x-large";
-    articleTitle.style.color = "#0056b3";
-    articleTitle.style.marginBottom = "1rem";
-
-    // Add Article Title
-    articleTitle.textContent = articleObj.getTitle();
-
-    //Add Article Body text
-    articleBody.textContent = articleObj.getBodyText();
-
-    // Append elements
-    articleCard.appendChild(articleTitle);
-    articleCard.appendChild(articleBody);
-
-    if(articleObj.getTag() !== null){
-        let tag = articleObj.tag;
-
-        articleFooter.className += "card-footer text-muted";
-        articleFooter.textContent = tag;
-
-        articleFooter.style.backgroundColor = "#fff";
-
-        articleCard.appendChild(articleFooter);
+            window.scrollTo(0, newArticle.clientHeight + 15);
+        });
     }
 
-    articleElement.appendChild(articleCard);
+    _createNewArticle(articleObj){
+        let articleElement = document.createElement('article');
+        let articleCard = document.createElement('div');
+        let articleTitle = document.createElement('h2');
+        let articleBody = document.createElement('p');
+        let articleFooter = document.createElement('div');
 
-    return articleElement;
+        articleElement.className += " article-list-item article card border-0 shadow";
+        articleCard.classList.add("card-body");
+        articleTitle.style.fontSize = "x-large";
+        articleTitle.style.color = "#0056b3";
+        articleTitle.style.marginBottom = "1rem";
+
+        // Add Article Title
+        articleTitle.textContent = articleObj.getTitle();
+
+        //Add Article Body text
+        articleBody.textContent = articleObj.getBodyText();
+
+        // Append elements
+        articleCard.appendChild(articleTitle);
+        articleCard.appendChild(articleBody);
+
+        if(articleObj.getTag() !== null){
+            let tag = articleObj.tag;
+
+            articleFooter.className += "card-footer text-muted";
+            articleFooter.textContent = tag;
+
+            articleFooter.style.backgroundColor = "#fff";
+
+            articleCard.appendChild(articleFooter);
+        }
+
+        articleElement.appendChild(articleCard);
+
+        return articleElement;
+    }
+
+    _initializePublicAndDraft(){
+        this.publicArticlesElement = document.createElement('div');
+        this.draftArticlesElement = document.createElement('div');
+        this.draftArticlesTitle = document.createElement('h1');
+        this.publicArticlesTitle = document.createElement('h1');
+
+        this.publicArticlesElement.prepend(this.publicArticlesTitle);
+        this.draftArticlesElement.prepend(this.draftArticlesTitle);
+
+        this._stylePublicAndDraft();
+    }
+
+    _stylePublicAndDraft(){
+        this.publicArticlesElement.classList.add("public");
+        this.draftArticlesElement.classList.add("draft");
+
+        this.publicArticlesTitle.textContent = "PUBBLICI";
+        this.publicArticlesTitle.style.float = "left";
+        this.publicArticlesTitle.style.marginLeft = "1%";
+        this.publicArticlesTitle.style.color = "#8a8a8a";
+        this.publicArticlesTitle.style.fontSize = "2rem";
+
+        this.draftArticlesTitle.textContent = "BOZZE";
+        this.draftArticlesTitle.style.float = "left";
+        this.draftArticlesTitle.style.marginLeft = "1%";
+        this.draftArticlesTitle.style.color = "#8a8a8a";
+        this.draftArticlesTitle.style.fontSize = "2rem";
+    }
 }

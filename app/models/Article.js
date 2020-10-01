@@ -1,47 +1,54 @@
-function Article(title, bodyText, public, featured, tag){
-    this.title = title;
-    this.bodyText = bodyText;
-    this.public = public;
-    this.featured = featured;
-    this.tag = tag;
+class Article{
+    constructor(title, bodyText, publics = true, featured = false, tag = []){
+        this.title = title;
+        this.bodyText = bodyText;
+        this.publics = publics;
+        this.featured = featured;
+        this.tag = tag;
+    }
 
-    this.getTitle = () =>{
+    getTitle(){
         return this.title;
-    };
+    }
+
+    setTitle(title){
+        this.title = title;
+    }
+
+    getBodyText(){
+        return this.bodyText;
+    }
+
+    setBodyText(){
+        this.bodyText = bodyText;
+    }
+
+    isPublic(){
+        return this.publics;
+    }
+
+    setPublic(publics){
+        this.publics = publics;
+    }
+
+    isFeatured(){
+        return this.featured;
+    }
+
+    setFeatured(featured){
+        this.featured = featured;
+    }
+
+    getTag(){
+        return this.tag;
+    }
+
+    setTag(tag){
+        if(typeof tag === "string"){
+            this.tag.push(tag);
+        }
+        else{
+            this.tag = tag;
+        }
+    }
 }
-
-Article.prototype.getBodyText = function(){
-    return this.bodyText;
-};
-
-Article.prototype.setTitle = function(title){
-    this.title = title;
-};
-
-Article.prototype.setBodyText = function(bodyText){
-    this.bodyText = bodyText;
-};
-
-Article.prototype.isPublic = function(){
-    return this.public;
-};
-
-Article.prototype.setPublic = function(public){
-    this.public = public;
-};
-
-Article.prototype.isFeatured = function(){
-    return this.featured;
-};
-
-Article.prototype.setFeatured = function(featured){
-    this.featured = featured;
-};
-
-Article.prototype.getTag = function(){
-    return this.tag;
-};
-
-Article.prototype.setTag = function(tag){
-    this.tag = tag;
-};
