@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" href="./logo-icon.png">
+    <link rel="icon" href="./utilities/images/logo-icon.png">
 
     <title>Il mio blog</title>
 
@@ -171,11 +171,13 @@
                             <label class="form-check-label ml-1" for="featured-article">Articolo in primo piano</label>
                         </div>
 
-                        <div class="text-inp input-group form-group mt-3">				
-                            <textarea class="tag-article form-control" placeholder="Hashtag" id="exampleFormControlTextarea1" rows="1"></textarea>
-                        </div>
+                        <div class="form-group row">
+                            <label for="tag-article" class="col-sm-1 col-form-label">#</label>
+                            <div class="col-sm-11">
+                              <input type="text" class="tag-article form-control" id="tag-article" placeholder="Hashtag">
+                            </div>
+                          </div>
                     </div>
-                    <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
                         <button type="button" id="add-article-modal" class="btn btn-primary add-article-modal">Aggiungi</button>
                     </div>
@@ -190,10 +192,10 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
         
         <!-- My scripts -->
-        <script src="./javascript/navbar.js"></script>
-        <script src="./javascript/articlesNumber.js"></script>
-        <script src="./javascript/Article.js"></script>
-        <script src="./javascript/randomArticles.js"></script>
-        <script src="./javascript/articleController.js"></script>
+        <script src="./controllers/navbar.js"></script>
+        <script src="./controllers/articlesNumber.js"></script>
+        <script src="./models/Article.js"></script>
+        <script src="./utilities/randomArticles.js"></script>
+        <script src="./controllers/articleController.js"></script>
     </body>
 </html>
