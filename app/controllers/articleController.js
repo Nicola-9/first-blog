@@ -14,7 +14,7 @@ class ArticleController{
             let article = this._createNewArticle(this.articlesArray[i]);
 
             if(this.articlesArray[i].isPublic()){
-                if(article.featured){
+                if(this.articlesArray[i].featured){
                     let badgeFeatured = document.createElement('span');
                     badgeFeatured.className += "badge badge-secondary";
                     badgeFeatured.textContent = "In primo piano";
