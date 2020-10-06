@@ -17,6 +17,10 @@
     font-size: 1.5rem;
 }
 
+.tag-article{
+    height: 100%;
+}
+
 .title-article-input{
     font-size: 1.5rem;
     height: 100% !important;

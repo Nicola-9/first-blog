@@ -103,7 +103,7 @@ class ArticleController{
         articleCard.appendChild(articleBody);
 
         if(articleObj.getTag() !== null){
-            let tag = articleObj.tag.join(", ");
+            let tag = (typeof articleObj.tag) === "string" ? articleObj.tag : articleObj.tag.join(", ");
 
             articleFooter.className += "card-footer text-muted";
             articleFooter.textContent = tag;
