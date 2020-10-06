@@ -4,7 +4,7 @@ class ArticleController{
         this.articlesContainer = document.querySelector('.article-list-item');
         this.publicRadioElements = document.getElementsByName('inlineRadioOptions');
         this.featuredCheck = document.querySelector('#featured-article');
-        this.articlesArray = getRandomArticles();
+        this.articlesArray = this._getArticles();
     }
 
     initializeArticlesDOMElement(){
@@ -103,7 +103,7 @@ class ArticleController{
         articleCard.appendChild(articleBody);
 
         if(articleObj.getTag() !== null){
-            let tag = articleObj.tag;
+            let tag = articleObj.tag.join(", ");
 
             articleFooter.className += "card-footer text-muted";
             articleFooter.textContent = tag;
@@ -145,5 +145,33 @@ class ArticleController{
         this.draftArticlesTitle.style.marginLeft = "1%";
         this.draftArticlesTitle.style.color = "#8a8a8a";
         this.draftArticlesTitle.style.fontSize = "2rem";
+    }
+
+    _getArticles(){
+        var articlesArray = [];
+
+        $.ajax({
+            type: "GET",
+            url: "https://api.npoint.io/24620ef625c768a4f3c4",
+            dataType: 'json',
+            async: false,
+            success: (data, response) =>{
+                let booleanRisposta = response[0];
+                        
+                if(booleanRisposta){
+                    for(let i in data){
+                        articlesArray.push(
+                            new Article(data[i].title, data[i].body, data[i].public, data[i].featured, data[i].tag)
+                        );
+                    }
+                } else{
+                    console.log("ERROR");
+                }
+            }
+        });
+
+        console.log(articlesArray);
+
+        return articlesArray;
     }
 }

@@ -200,6 +200,20 @@
         <script type="text/javascript" src="../controllers/ArticleController.js"></script>
         
         <script type="text/javascript">
+            $.ajax({
+    			type: "GET",
+    			url: "https://api.npoint.io/24620ef625c768a4f3c4",
+    			async: true,
+    			success: (data, response) =>{
+    				let booleanRisposta = response[0];
+    						
+    				if(booleanRisposta){
+                        console.log(data);
+    				} else{
+    					console.log("ERROR");
+    				}
+    			}
+    		});
             document.addEventListener('DOMContentLoaded', () =>{
                 let articleController = new ArticleController();
 
