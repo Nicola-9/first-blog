@@ -34,7 +34,8 @@ class ArticleController{
                 this.articlesContainer.appendChild(this.draftArticlesElement);
             }
         }
-
+        
+        this.featuredCheck.disabled = false;
     }
 
     setAddArticleListener(){
