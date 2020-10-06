@@ -14,7 +14,15 @@ class ArticleController{
             let article = this._createNewArticle(this.articlesArray[i]);
 
             if(this.articlesArray[i].isPublic()){
-                this.publicArticlesElement.appendChild(article);
+                if(article.featured){
+                    let badgeFeatured = document.createElement('span');
+                    badgeFeatured.className += "badge badge-secondary";
+                    badgeFeatured.textContent = "In primo piano";
+                    article.prepend(badgeFeatured);
+                    this.publicArticlesElement.insertBefore(article, this.publicArticlesElement.children[1]);
+                } else {
+                    this.publicArticlesElement.appendChild(article);
+                }
             } else{
                 this.draftArticlesElement.appendChild(article);
             }
@@ -112,7 +120,7 @@ class ArticleController{
 
             articleCard.appendChild(articleFooter);
         }
-
+        
         articleElement.appendChild(articleCard);
 
         return articleElement;
