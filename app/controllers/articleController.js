@@ -4,7 +4,9 @@ class ArticleController{
         this.articlesContainer = document.querySelector('.article-list-item');
         this.publicRadioElements = document.getElementsByName('inlineRadioOptions');
         this.featuredCheck = document.querySelector('#featured-article');
-        this.articlesArray = this._getArticles();
+
+        this.restController = new RestController();
+        this.articlesArray = this.restController.getArticles();
     }
 
     initializeArticlesDOMElement(){
@@ -66,16 +68,7 @@ class ArticleController{
                     tag: articleToAdd.getTag()
             };
 
-            $.ajax({
-                type: "POST",
-                url: "https://texty-89895.firebaseio.com/posts.json",
-                data: JSON.stringify(postArticle),
-                dataType: 'json',
-                async: false,
-                success: (response) =>{
-                    console.log("Execution post request complete")
-                }
-            });
+            this.restController.postArticle("https://texty-89895.firebaseio.com/posts.json", postArticle); 
 
             this.articlesArray.push(articleToAdd);
 
@@ -174,35 +167,5 @@ class ArticleController{
         this.draftArticlesTitle.style.marginLeft = "1%";
         this.draftArticlesTitle.style.color = "#8a8a8a";
         this.draftArticlesTitle.style.fontSize = "2rem";
-    }
-
-    _getArticles(){
-        var articlesArray = [];
-
-        $.ajax({
-            type: "GET",
-            url: "https://texty-89895.firebaseio.com/posts.json",
-            dataType: 'json',
-            async: false,
-            success: (data, response) =>{
-                let booleanRisposta = response[0];
-                        
-                if(booleanRisposta){
-                    for(let i in data){
-                        let obj = data[i];
-
-                        articlesArray.push(
-                            new Article(obj.title, obj.body, obj.public, obj.featured, obj.tag)
-                        );
-                    }
-                } else{
-                    console.log("ERROR");
-                }
-            }
-        });
-
-        console.log(articlesArray);
-
-        return articlesArray;
     }
 }
