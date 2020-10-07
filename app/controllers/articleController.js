@@ -57,6 +57,26 @@ class ArticleController{
             let featured = this.featuredCheck.checked;
 
             let articleToAdd = new Article(articleTitle, articleBody, isPublic, featured, tags);
+
+            let postArticle = {
+                    title: articleToAdd.title,
+                    body: articleToAdd.getBodyText(),
+                    public: articleToAdd.isPublic(),
+                    featured: articleToAdd.isFeatured(),
+                    tag: articleToAdd.getTag()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "https://texty-89895.firebaseio.com/posts.json",
+                data: JSON.stringify(postArticle),
+                dataType: 'json',
+                async: false,
+                success: (response) =>{
+                    console.log("Execution post request complete")
+                }
+            });
+
             this.articlesArray.push(articleToAdd);
 
             let newArticle = this._createNewArticle(articleToAdd);
@@ -161,7 +181,7 @@ class ArticleController{
 
         $.ajax({
             type: "GET",
-            url: "https://api.npoint.io/24620ef625c768a4f3c4",
+            url: "https://texty-89895.firebaseio.com/posts.json",
             dataType: 'json',
             async: false,
             success: (data, response) =>{
@@ -169,8 +189,10 @@ class ArticleController{
                         
                 if(booleanRisposta){
                     for(let i in data){
+                        let obj = data[i];
+
                         articlesArray.push(
-                            new Article(data[i].title, data[i].body, data[i].public, data[i].featured, data[i].tag)
+                            new Article(obj.title, obj.body, obj.public, obj.featured, obj.tag)
                         );
                     }
                 } else{
