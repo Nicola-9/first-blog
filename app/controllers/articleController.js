@@ -101,12 +101,56 @@ class ArticleController{
         });
     }
 
+    setDeleteArticleListener(){
+        let deleteBtns = document.querySelectorAll('.delete-btn');
+
+        for(let i=0; i < deleteBtns.length; i++){
+            deleteBtns[i].addEventListener('click', () =>{
+                let articleId = deleteBtns[i].parentNode.childNodes[0].textContent;
+
+                this.restController.deleteArticle("https://texty-89895.firebaseio.com/posts/", articleId);
+                location.reload();
+            })
+        }
+    }
+
+    setModifyArticleListener(){
+        
+    }
+
     _createNewArticle(articleObj){
         let articleElement = document.createElement('article');
         let articleCard = document.createElement('div');
         let articleTitle = document.createElement('h2');
+        let divButtons = document.createElement('div');
+        let deleteButton = document.createElement('button');
+        let modifyButton = document.createElement('button');
+        let hiddenId = document.createElement('p');
         let articleBody = document.createElement('p');
         let articleFooter = document.createElement('div');
+
+        divButtons.className += "float-right text-right";
+        divButtons.style.fontSize = "1.5rem";
+        divButtons.style.position = "relative";
+        divButtons.style.marginTop = ".5rem";
+        divButtons.style.right = ".5%";
+        divButtons.style.width = "100%";
+
+        hiddenId.className += "hidden-id";
+        hiddenId.style.display = "none";
+        hiddenId.textContent = articleObj.id;
+
+        deleteButton.className += "btn btn-danger delete-btn";
+        deleteButton.textContent = "ELIMINA";
+        modifyButton.className += "btn btn-primary";
+        modifyButton.textContent = "MODIFICA";
+        modifyButton.style.marginRight = "1%";
+
+        divButtons.appendChild(hiddenId);
+        divButtons.appendChild(modifyButton);
+        divButtons.appendChild(deleteButton);
+
+        articleElement.appendChild(divButtons);
 
         articleElement.className += " article-list-item article card border-0 shadow";
         articleCard.classList.add("card-body");

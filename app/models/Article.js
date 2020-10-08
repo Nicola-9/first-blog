@@ -1,10 +1,11 @@
 class Article{
-    constructor(title, bodyText, publics = true, featured = false, tag = []){
+    constructor(title, bodyText, publics = true, featured = false, tag = [], id = null){
         this.title = title;
         this.bodyText = bodyText;
         this.publics = publics;
         this.featured = featured;
         this.tag = tag;
+        this.id = id;
     }
 
     getTitle(){

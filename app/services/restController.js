@@ -15,11 +15,11 @@ class RestController{
                 let booleanRisposta = response[0];
                         
                 if(booleanRisposta){
-                    for(let i in data){
-                        let obj = data[i];
-    
+                    for(let key in data){
+                        let obj = data[key];
+                    
                         articlesArray.push(
-                            new Article(obj.title, obj.body, obj.public, obj.featured, obj.tag)
+                            new Article(obj.title, obj.body, obj.public, obj.featured, obj.tag, key)
                         );
                     }
                 } else{
@@ -72,7 +72,7 @@ class RestController{
         });
     }
 
-    deleteArticle(baseUrl, idObj, postArticle){
+    deleteArticle(baseUrl, idObj){
         let apiUrl = baseUrl + idObj + ".json";
 
         $.ajax({
