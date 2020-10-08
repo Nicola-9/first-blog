@@ -46,15 +46,38 @@ class RestController{
         });
     }
 
-    patchArticle(){
+    updateArticlePut(baseUrl, idObj, object){
+        let apiUrl = baseUrl + idObj + ".json";
 
+        $.ajax({
+            type: 'PUT',
+            url: apiUrl,
+            contentType: 'application/json',
+            data: JSON.stringify(object),
+        }).done(function () {
+            console.log('SUCCESS');
+        });
     }
 
-    deleteArticle(url, postArticle){
+    updateArticlePatch(baseUrl, idObj, object){
+        let apiUrl = baseUrl + idObj + ".json";
+
+        $.ajax({
+            type: 'PATCH',
+            url: apiUrl,
+            contentType: 'application/json',
+            data: JSON.stringify(object),
+        }).done(function () {
+            console.log('SUCCESS');
+        });
+    }
+
+    deleteArticle(baseUrl, idObj, postArticle){
+        let apiUrl = baseUrl + idObj + ".json";
+
         $.ajax({
             type: "DELETE",
-            url: url,
-            data: JSON.stringify(postArticle),
+            url: apiUrl,
             dataType: 'json',
             async: false,
             success: (response) =>{
