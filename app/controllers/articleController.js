@@ -7,6 +7,7 @@ class ArticleController{
 
         this.restController = new RestController();
         this.articlesArray = this.restController.getArticles();
+        this.currentArticle = null;
     }
 
     initializeArticlesDOMElement(){
@@ -40,65 +41,99 @@ class ArticleController{
         this.featuredCheck.disabled = false;
     }
 
-    setAddArticleListener(){
+    setAddArticleListener(isModify, articleId){
         this.addArticleBtn.addEventListener('click', () =>{
-            let articleTitle = document.querySelector('.title-article-input').value;
-            let articleBody = document.querySelector('.body-text-article').value;
-            let tags = document.querySelector('.tag-article').value;
-
-            let isPublic = false;
-
-            for(let i in this.publicRadioElements){
-                if(this.publicRadioElements[i].checked){
-                    if(this.publicRadioElements[i].value === "public"){
-                        isPublic = true;
-                    }
-                }
-            }
-            
-            let featured = this.featuredCheck.checked;
-
-            let articleToAdd = new Article(articleTitle, articleBody, isPublic, featured, tags);
-
-            let postArticle = {
-                    title: articleToAdd.title,
-                    body: articleToAdd.getBodyText(),
-                    public: articleToAdd.isPublic(),
-                    featured: articleToAdd.isFeatured(),
-                    tag: articleToAdd.getTag()
-            };
-
-            this.restController.postArticle("https://texty-89895.firebaseio.com/posts.json", postArticle); 
-
-            this.articlesArray.push(articleToAdd);
-
-            let newArticle = this._createNewArticle(articleToAdd);
-
-            if(articleToAdd.isPublic()){
-                if(articleToAdd.featured){
-                    let badgeFeatured = document.createElement('span');
-                    badgeFeatured.className += "badge badge-secondary";
-                    badgeFeatured.textContent = "In primo piano";
-                    newArticle.prepend(badgeFeatured);
-                    this.publicArticlesElement.insertBefore(newArticle, this.publicArticlesElement.children[1]);
-                } else {
-                    this.publicArticlesElement.appendChild(newArticle);
-                }
-            } else{
-                this.draftArticlesElement.appendChild(newArticle);
-            }
-
-            if(this.publicArticlesElement.childNodes.length > 1){
-                this.articlesContainer.appendChild(this.publicArticlesElement);
-            }
-            if(this.draftArticlesElement.childNodes.length > 1){
-                this.articlesContainer.appendChild(this.draftArticlesElement);
-            }
-
-            $('#modal-add-article').modal('hide');
-
-            window.scrollTo(0, newArticle.clientHeight + 15);
+            this._addArticle(false);
         });
+    }
+
+    setModifyListener(articleID){
+        let articleTitle = document.querySelector('.title-article-input');
+        let articleBody = document.querySelector('.body-text-article');
+        let tags = document.querySelector('.tag-article');
+
+        for (let i = 0; i < this.articlesArray.length; i++) {
+            if (this.articlesArray[i].id === articleId) {
+                articleTitle.value = this.articlesArray[i].getTitle();
+                articleBody.textContent = this.articlesArray[i].bodyText;
+                tags.textContent = this.articlesArray[i].tag;
+
+                break;
+            }
+        }
+
+        for (let i in this.publicRadioElements) {
+            if (this.currentArticle.isPublic()) {
+                if (this.publicRadioElements[i].value === "public") {
+                    this.publicRadioElements[i].checked = true;
+                }
+            } else {
+                if (this.publicRadioElements[i].value === "draft") {
+                    this.publicRadioElements[i].checked = true;
+                }
+            }
+        }
+
+        if (this.currentArticle.featured) {
+            this.featuredCheck.checked = true;
+        } else {
+            this.featuredCheck.checked = false;
+        }
+
+        let isPublic = false;
+
+        for(let i in this.publicRadioElements){
+            if(this.publicRadioElements[i].checked){
+                if(this.publicRadioElements[i].value === "public"){
+                    isPublic = true;
+                }
+            }
+        }
+        
+        let featured = this.featuredCheck.checked;
+
+        let articleToAdd = new Article(articleTitle, articleBody, isPublic, featured);
+
+        let postArticle = {
+                title: articleToAdd.title,
+                bodyText: articleToAdd.getBodyText(),
+                public: articleToAdd.isPublic(),
+                featured: articleToAdd.isFeatured(),
+                tags: articleToAdd.getTag()
+        };
+
+        let articleId = null;
+
+        articleId = this.restController.updateArticlePut("http://localhost:3000/articles", articleID, postArticle); 
+
+        articleToAdd.id = articleId;
+
+        this.articlesArray.push(articleToAdd);
+
+        let newArticle = this._createNewArticle(articleToAdd);
+
+        if(articleToAdd.isPublic()){
+            if(articleToAdd.featured){
+                let badgeFeatured = document.createElement('span');
+                badgeFeatured.className += "badge badge-secondary";
+                badgeFeatured.textContent = "In primo piano";
+                newArticle.prepend(badgeFeatured);
+                this.publicArticlesElement.insertBefore(newArticle, this.publicArticlesElement.children[1]);
+            } else {
+                this.publicArticlesElement.appendChild(newArticle);
+            }
+        } else{
+            this.draftArticlesElement.appendChild(newArticle);
+        }
+
+        if(this.publicArticlesElement.childNodes.length > 1){
+            this.articlesContainer.appendChild(this.publicArticlesElement);
+        }
+        if(this.draftArticlesElement.childNodes.length > 1){
+            this.articlesContainer.appendChild(this.draftArticlesElement);
+        }
+
+        $('#modal-add-article').modal('hide');
     }
 
     setDeleteArticleListener(){
@@ -108,17 +143,97 @@ class ArticleController{
             deleteBtns[i].addEventListener('click', () =>{
                 let articleId = deleteBtns[i].parentNode.childNodes[0].textContent;
 
-                this.restController.deleteArticle("https://texty-89895.firebaseio.com/posts/", articleId);
+                this.restController.deleteArticle("http://localhost:3000/articles/", articleId);
                 location.reload();
             })
         }
     }
 
     setModifyArticleListener(){
+        let modifyBtns = document.querySelectorAll('.modify-btn');
+
+        for(let i=0; i < modifyBtns.length; i++){
+            modifyBtns[i].addEventListener('click', () =>{
+                let articleId = modifyBtns[i].parentNode.childNodes[0].textContent;
+
+                document.querySelector('#modify-article-modal').addEventListener('click', () =>{
+                    this.setModifyListener(articleId);
+                });
+
+                $('#modal-add-article').modal('show');
+            });
+        }
+    }
+
+    _addArticle(isModify){
+        let articleTitle = document.querySelector('.title-article-input').value;
+        let articleBody = document.querySelector('.body-text-article').value;
+        let tags = document.querySelector('.tag-article').value;
+
+        let isPublic = false;
+
+        for(let i in this.publicRadioElements){
+            if(this.publicRadioElements[i].checked){
+                if(this.publicRadioElements[i].value === "public"){
+                    isPublic = true;
+                }
+            }
+        }
         
+        let featured = this.featuredCheck.checked;
+
+        let articleToAdd = new Article(articleTitle, articleBody, isPublic, featured);
+
+        let postArticle = {
+                title: articleToAdd.title,
+                bodyText: articleToAdd.getBodyText(),
+                public: articleToAdd.isPublic(),
+                featured: articleToAdd.isFeatured(),
+                tags: articleToAdd.getTag()
+        };
+
+        let articleId = null;
+
+        if(!isModify)
+            articleId = this.restController.postArticle("http://localhost:3000/articles", postArticle); 
+        else{
+            articleId = this.restController.updateArticlePut("http://localhost:3000/articles", this.currentArticle.id, postArticle); 
+            return;
+        }
+
+        articleToAdd.id = articleId;
+
+        this.articlesArray.push(articleToAdd);
+
+        let newArticle = this._createNewArticle(articleToAdd);
+
+        if(articleToAdd.isPublic()){
+            if(articleToAdd.featured){
+                let badgeFeatured = document.createElement('span');
+                badgeFeatured.className += "badge badge-secondary";
+                badgeFeatured.textContent = "In primo piano";
+                newArticle.prepend(badgeFeatured);
+                this.publicArticlesElement.insertBefore(newArticle, this.publicArticlesElement.children[1]);
+            } else {
+                this.publicArticlesElement.appendChild(newArticle);
+            }
+        } else{
+            this.draftArticlesElement.appendChild(newArticle);
+        }
+
+        if(this.publicArticlesElement.childNodes.length > 1){
+            this.articlesContainer.appendChild(this.publicArticlesElement);
+        }
+        if(this.draftArticlesElement.childNodes.length > 1){
+            this.articlesContainer.appendChild(this.draftArticlesElement);
+        }
+
+        $('#modal-add-article').modal('hide');
     }
 
     _createNewArticle(articleObj){
+        this.currentArticle = articleObj;
+
         let articleElement = document.createElement('article');
         let articleCard = document.createElement('div');
         let articleTitle = document.createElement('h2');
@@ -142,7 +257,7 @@ class ArticleController{
 
         deleteButton.className += "btn btn-danger delete-btn";
         deleteButton.textContent = "ELIMINA";
-        modifyButton.className += "btn btn-primary";
+        modifyButton.className += "btn btn-primary modify-btn";
         modifyButton.textContent = "MODIFICA";
         modifyButton.style.marginRight = "1%";
 
