@@ -55,7 +55,7 @@ class RestController{
     }
 
     updateArticlePut(baseUrl, idObj, object){
-        let apiUrl = baseUrl + idObj + ".json";
+        let apiUrl = baseUrl + idObj;
         let articleId = null;
 
         $.ajax({
@@ -65,7 +65,6 @@ class RestController{
             data: JSON.stringify(object),
         }).done(function () {
             console.log('SUCCESS');
-            articleId = data.name;
         });
 
         return articleId;

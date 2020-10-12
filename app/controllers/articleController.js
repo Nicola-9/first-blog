@@ -47,7 +47,7 @@ class ArticleController{
         });
     }
 
-    setModifyListener(articleID){
+    setModifyListener(articleId){
         let articleTitle = document.querySelector('.title-article-input');
         let articleBody = document.querySelector('.body-text-article');
         let tags = document.querySelector('.tag-article');
@@ -91,8 +91,16 @@ class ArticleController{
         }
         
         let featured = this.featuredCheck.checked;
+    }
 
-        let articleToAdd = new Article(articleTitle, articleBody, isPublic, featured);
+    _modifyArticle(articleId){
+        let articleTitle = document.querySelector('.title-article-input').value;
+        let articleBody = document.querySelector('.body-text-article').value;
+        let tags = document.querySelector('.tag-article').value;
+        
+        let featured = this.featuredCheck.checked;
+
+        let articleToAdd = new Article(articleTitle, articleBody, true, featured);
 
         let postArticle = {
                 title: articleToAdd.title,
@@ -102,36 +110,9 @@ class ArticleController{
                 tags: articleToAdd.getTag()
         };
 
-        let articleId = null;
+        let articleID = null;
 
-        articleId = this.restController.updateArticlePut("http://localhost:3000/articles", articleID, postArticle); 
-
-        articleToAdd.id = articleId;
-
-        this.articlesArray.push(articleToAdd);
-
-        let newArticle = this._createNewArticle(articleToAdd);
-
-        if(articleToAdd.isPublic()){
-            if(articleToAdd.featured){
-                let badgeFeatured = document.createElement('span');
-                badgeFeatured.className += "badge badge-secondary";
-                badgeFeatured.textContent = "In primo piano";
-                newArticle.prepend(badgeFeatured);
-                this.publicArticlesElement.insertBefore(newArticle, this.publicArticlesElement.children[1]);
-            } else {
-                this.publicArticlesElement.appendChild(newArticle);
-            }
-        } else{
-            this.draftArticlesElement.appendChild(newArticle);
-        }
-
-        if(this.publicArticlesElement.childNodes.length > 1){
-            this.articlesContainer.appendChild(this.publicArticlesElement);
-        }
-        if(this.draftArticlesElement.childNodes.length > 1){
-            this.articlesContainer.appendChild(this.draftArticlesElement);
-        }
+        articleID = this.restController.updateArticlePut("http://localhost:3000/articles/", articleId, postArticle); 
 
         $('#modal-add-article').modal('hide');
     }
@@ -156,11 +137,16 @@ class ArticleController{
             modifyBtns[i].addEventListener('click', () =>{
                 let articleId = modifyBtns[i].parentNode.childNodes[0].textContent;
 
-                document.querySelector('#modify-article-modal').addEventListener('click', () =>{
-                    this.setModifyListener(articleId);
-                });
+                document.querySelector('#modify-article-modal').style.display = "block";
+                document.querySelector('#add-article-modal').style.display = "none";
 
                 $('#modal-add-article').modal('show');
+
+                this.setModifyListener(articleId);
+
+                document.querySelector('#modify-article-modal').addEventListener('click', () =>{
+                    this._modifyArticle(articleId);
+                });
             });
         }
     }
