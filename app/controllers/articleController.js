@@ -1,6 +1,7 @@
 class ArticleController{
     constructor(){
         this.addArticleBtn = document.querySelector('#add-article-modal');
+        this.modifyArticleBtn = document.querySelector('#modify-article-modal');
         this.articlesContainer = document.querySelector('.article-list-item');
         this.publicRadioElements = document.getElementsByName('inlineRadioOptions');
         this.featuredCheck = document.querySelector('#featured-article');
@@ -41,13 +42,110 @@ class ArticleController{
         this.featuredCheck.disabled = false;
     }
 
-    setAddArticleListener(isModify, articleId){
+    setAddArticleListener(){
+        this._showAddBtn();
+
         this.addArticleBtn.addEventListener('click', () =>{
             this._addArticle(false);
         });
     }
 
-    setModifyListener(articleId){
+    setDeleteArticleListener(){
+        let deleteBtns = document.querySelectorAll('.delete-btn');
+
+        for(let i=0; i < deleteBtns.length; i++){
+            deleteBtns[i].addEventListener('click', () =>{
+                let articleId = deleteBtns[i].parentNode.childNodes[0].textContent;
+
+                this.restController.deleteArticle("http://localhost:3000/articles/", articleId);
+                location.reload();
+            })
+        }
+    }
+
+    setModifyArticleListener(){
+        let modifyBtns = document.querySelectorAll('.modify-btn');
+
+        for(let i=0; i < modifyBtns.length; i++){
+            modifyBtns[i].addEventListener('click', () =>{
+                let articleId = modifyBtns[i].parentNode.childNodes[0].textContent;
+
+                document.querySelector('#modify-article-modal').style.display = "block";
+                document.querySelector('#add-article-modal').style.display = "none";
+
+                $('#modal-add-article').modal('show');
+
+                this._fillModifyField(articleId);
+
+                document.querySelector('#modify-article-modal').addEventListener('click', () =>{
+                    this._modifyArticle(articleId);
+                });
+            });
+        }
+    }
+
+    _addArticle(){
+        let articleTitle = document.querySelector('.title-article-input').value;
+        let articleBody = document.querySelector('.body-text-article').value;
+        let tags = document.querySelector('.tag-article').value;
+
+        let isPublic = false;
+
+        for(let i in this.publicRadioElements){
+            if(this.publicRadioElements[i].checked){
+                if(this.publicRadioElements[i].value === "public"){
+                    isPublic = true;
+                }
+            }
+        }
+        
+        let featured = this.featuredCheck.checked;
+
+        let articleToAdd = new Article(articleTitle, articleBody, isPublic, featured, tags);
+
+        let postArticle = {
+                title: articleToAdd.title,
+                bodyText: articleToAdd.getBodyText(),
+                public: articleToAdd.isPublic(),
+                featured: articleToAdd.isFeatured(),
+                tags: articleToAdd.getTag()
+        };
+
+        let articleId = null;
+
+        articleId = this.restController.postArticle("http://localhost:3000/articles", postArticle); 
+
+        articleToAdd.id = articleId.data._id;
+
+        this.articlesArray.push(articleToAdd);
+
+        let newArticle = this._createNewArticle(articleToAdd);
+
+        if(articleToAdd.isPublic()){
+            if(articleToAdd.featured){
+                let badgeFeatured = document.createElement('span');
+                badgeFeatured.className += "badge badge-secondary";
+                badgeFeatured.textContent = "In primo piano";
+                newArticle.prepend(badgeFeatured);
+                this.publicArticlesElement.insertBefore(newArticle, this.publicArticlesElement.children[1]);
+            } else {
+                this.publicArticlesElement.appendChild(newArticle);
+            }
+        } else{
+            this.draftArticlesElement.appendChild(newArticle);
+        }
+
+        if(this.publicArticlesElement.childNodes.length > 1){
+            this.articlesContainer.appendChild(this.publicArticlesElement);
+        }
+        if(this.draftArticlesElement.childNodes.length > 1){
+            this.articlesContainer.appendChild(this.draftArticlesElement);
+        }
+
+        $('#modal-add-article').modal('hide');
+    }
+
+    _fillModifyField(articleId){
         let articleTitle = document.querySelector('.title-article-input');
         let articleBody = document.querySelector('.body-text-article');
         let tags = document.querySelector('.tag-article');
@@ -79,82 +177,12 @@ class ArticleController{
         } else {
             this.featuredCheck.checked = false;
         }
-
-        let isPublic = false;
-
-        for(let i in this.publicRadioElements){
-            if(this.publicRadioElements[i].checked){
-                if(this.publicRadioElements[i].value === "public"){
-                    isPublic = true;
-                }
-            }
-        }
-        
-        let featured = this.featuredCheck.checked;
     }
 
     _modifyArticle(articleId){
         let articleTitle = document.querySelector('.title-article-input').value;
         let articleBody = document.querySelector('.body-text-article').value;
         let tags = document.querySelector('.tag-article').value;
-        
-        let featured = this.featuredCheck.checked;
-
-        let articleToAdd = new Article(articleTitle, articleBody, true, featured);
-
-        let postArticle = {
-                title: articleToAdd.title,
-                bodyText: articleToAdd.getBodyText(),
-                public: articleToAdd.isPublic(),
-                featured: articleToAdd.isFeatured(),
-                tags: articleToAdd.getTag()
-        };
-
-        let articleID = null;
-
-        articleID = this.restController.updateArticlePut("http://localhost:3000/articles/", articleId, postArticle); 
-
-        $('#modal-add-article').modal('hide');
-    }
-
-    setDeleteArticleListener(){
-        let deleteBtns = document.querySelectorAll('.delete-btn');
-
-        for(let i=0; i < deleteBtns.length; i++){
-            deleteBtns[i].addEventListener('click', () =>{
-                let articleId = deleteBtns[i].parentNode.childNodes[0].textContent;
-
-                this.restController.deleteArticle("http://localhost:3000/articles/", articleId);
-                location.reload();
-            })
-        }
-    }
-
-    setModifyArticleListener(){
-        let modifyBtns = document.querySelectorAll('.modify-btn');
-
-        for(let i=0; i < modifyBtns.length; i++){
-            modifyBtns[i].addEventListener('click', () =>{
-                let articleId = modifyBtns[i].parentNode.childNodes[0].textContent;
-
-                document.querySelector('#modify-article-modal').style.display = "block";
-                document.querySelector('#add-article-modal').style.display = "none";
-
-                $('#modal-add-article').modal('show');
-
-                this.setModifyListener(articleId);
-
-                document.querySelector('#modify-article-modal').addEventListener('click', () =>{
-                    this._modifyArticle(articleId);
-                });
-            });
-        }
-    }
-
-    _addArticle(isModify){
-        let articleTitle = document.querySelector('.title-article-input').value;
-        let articleBody = document.querySelector('.body-text-article').value;
-        let tags = document.querySelector('.tag-article').value;
 
         let isPublic = false;
 
@@ -168,9 +196,9 @@ class ArticleController{
         
         let featured = this.featuredCheck.checked;
 
-        let articleToAdd = new Article(articleTitle, articleBody, isPublic, featured);
+        let articleToAdd = new Article(articleTitle, articleBody, isPublic, featured, tags, articleId);
 
-        let postArticle = {
+        let modifiedArticle = {
                 title: articleToAdd.title,
                 bodyText: articleToAdd.getBodyText(),
                 public: articleToAdd.isPublic(),
@@ -178,41 +206,7 @@ class ArticleController{
                 tags: articleToAdd.getTag()
         };
 
-        let articleId = null;
-
-        if(!isModify)
-            articleId = this.restController.postArticle("http://localhost:3000/articles", postArticle); 
-        else{
-            articleId = this.restController.updateArticlePut("http://localhost:3000/articles", this.currentArticle.id, postArticle); 
-            return;
-        }
-
-        articleToAdd.id = articleId;
-
-        this.articlesArray.push(articleToAdd);
-
-        let newArticle = this._createNewArticle(articleToAdd);
-
-        if(articleToAdd.isPublic()){
-            if(articleToAdd.featured){
-                let badgeFeatured = document.createElement('span');
-                badgeFeatured.className += "badge badge-secondary";
-                badgeFeatured.textContent = "In primo piano";
-                newArticle.prepend(badgeFeatured);
-                this.publicArticlesElement.insertBefore(newArticle, this.publicArticlesElement.children[1]);
-            } else {
-                this.publicArticlesElement.appendChild(newArticle);
-            }
-        } else{
-            this.draftArticlesElement.appendChild(newArticle);
-        }
-
-        if(this.publicArticlesElement.childNodes.length > 1){
-            this.articlesContainer.appendChild(this.publicArticlesElement);
-        }
-        if(this.draftArticlesElement.childNodes.length > 1){
-            this.articlesContainer.appendChild(this.draftArticlesElement);
-        }
+        this.restController.updateArticlePut("http://localhost:3000/articles/", articleId, modifiedArticle); 
 
         $('#modal-add-article').modal('hide');
     }
@@ -283,6 +277,13 @@ class ArticleController{
         articleElement.appendChild(articleCard);
 
         return articleElement;
+    }
+
+    _showAddBtn(){
+        document.querySelector('.modal-btn-article').addEventListener('click', () =>{
+            document.querySelector('#modify-article-modal').style.display = "none";
+            document.querySelector('#add-article-modal').style.display = "block";
+        });
     }
 
     _initializePublicAndDraft(){
