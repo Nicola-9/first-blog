@@ -25,7 +25,7 @@ class RestController{
                         );
                     }
                 } else{
-                    console.log("ERROR");
+                    return false;
                 }
             }
         });

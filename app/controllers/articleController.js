@@ -14,6 +14,16 @@ class ArticleController{
     initializeArticlesDOMElement(){
         this._initializePublicAndDraft();
 
+        if(!this.articlesArray){
+            let emptyArticles = document.createElement('p');
+            
+            emptyArticles.textContent = "Ops... Qualcosa non è andata per il verso giusto";
+            emptyArticles.style.fontSize = "3rem";
+            emptyArticles.style.color = "#828282";
+            
+            document.querySelector('.container').appendChild(emptyArticles);
+        }
+
         if(!this.articlesArray.length > 0){
             let emptyArticles = document.createElement('p');
             
@@ -67,8 +77,13 @@ class ArticleController{
             deleteBtns[i].addEventListener('click', () =>{
                 let articleId = deleteBtns[i].parentNode.childNodes[0].textContent;
 
+                $('#spinner-modal').modal('show');
                 this.restController.deleteArticle("http://localhost:3000/articles/", articleId);
-                location.reload();
+
+                setTimeout(() =>{
+                    $('#spinner-modal').modal('hide');
+                    location.reload();
+                }, 500);
             })
         }
     }
@@ -231,6 +246,7 @@ class ArticleController{
                 tags: articleToAdd.getTag()
         };
 
+        $('#spinner-modal').modal('show');
         this.restController.updateArticlePut("http://localhost:3000/articles/", articleId, modifiedArticle); 
 
         document.querySelector('.title-article-input').value = "";
@@ -244,7 +260,10 @@ class ArticleController{
 
         $('#modal-add-article').modal('hide');
 
-        location.reload();
+        setTimeout(() =>{
+            $('#spinner-modal').modal('hide');
+            location.reload();
+        }, 700);
     }
 
     _createNewArticle(articleObj){
