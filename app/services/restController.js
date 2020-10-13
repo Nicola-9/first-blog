@@ -47,7 +47,8 @@ class RestController{
             async: false,
             success: (data, response) =>{
                 console.log("Execution post request complete");
-                articleId = data.data.name;
+                articleId = data.data._id;
+                console.log(articleId);
             }
         });
 
@@ -56,7 +57,6 @@ class RestController{
 
     updateArticlePut(baseUrl, idObj, object){
         let apiUrl = baseUrl + idObj;
-        let articleId = null;
 
         $.ajax({
             type: 'PUT',
@@ -66,12 +66,10 @@ class RestController{
         }).done(function () {
             console.log('SUCCESS');
         });
-
-        return articleId;
     }
 
     updateArticlePatch(baseUrl, idObj, object){
-        let apiUrl = baseUrl + idObj + ".json";
+        let apiUrl = baseUrl + idObj;
 
         $.ajax({
             type: 'PATCH',

@@ -111,12 +111,9 @@ class ArticleController{
                 tags: articleToAdd.getTag()
         };
 
-        let articleId = null;
+        let articleId = this.restController.postArticle("http://localhost:3000/articles", postArticle); 
 
-        articleId = this.restController.postArticle("http://localhost:3000/articles", postArticle); 
-
-        articleToAdd.id = articleId.data._id;
-
+        articleToAdd.id = articleId;
         this.articlesArray.push(articleToAdd);
 
         let newArticle = this._createNewArticle(articleToAdd);
@@ -142,7 +139,18 @@ class ArticleController{
             this.articlesContainer.appendChild(this.draftArticlesElement);
         }
 
+        document.querySelector('.title-article-input').value = "";
+        document.querySelector('.body-text-article').value = "";
+        document.querySelector('.tag-article').value = "";
+        document.querySelector('#featured-article').checked = false;
+        
+        for(let i = 0; i < this.publicRadioElements.length; i++){
+            this.publicRadioElements[i].checked = false;
+        }
+
         $('#modal-add-article').modal('hide');
+
+        location.reload();
     }
 
     _fillModifyField(articleId){
@@ -150,11 +158,13 @@ class ArticleController{
         let articleBody = document.querySelector('.body-text-article');
         let tags = document.querySelector('.tag-article');
 
+         console.log(this.articlesArray);
+
         for (let i = 0; i < this.articlesArray.length; i++) {
             if (this.articlesArray[i].id === articleId) {
                 articleTitle.value = this.articlesArray[i].getTitle();
-                articleBody.textContent = this.articlesArray[i].bodyText;
-                tags.textContent = this.articlesArray[i].tag;
+                articleBody.value = this.articlesArray[i].bodyText;
+                tags.value = this.articlesArray[i].tag;
 
                 break;
             }
@@ -208,7 +218,18 @@ class ArticleController{
 
         this.restController.updateArticlePut("http://localhost:3000/articles/", articleId, modifiedArticle); 
 
+        document.querySelector('.title-article-input').value = "";
+        document.querySelector('.body-text-article').value = "";
+        document.querySelector('.tag-article').value = "";
+        document.querySelector('#featured-article').checked = false;
+        
+        for(let i = 0; i < this.publicRadioElements; i++){
+            this.publicRadioElements[i].checked = false;
+        }
+
         $('#modal-add-article').modal('hide');
+
+        location.reload();
     }
 
     _createNewArticle(articleObj){
