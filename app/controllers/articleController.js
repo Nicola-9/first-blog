@@ -14,6 +14,16 @@ class ArticleController{
     initializeArticlesDOMElement(){
         this._initializePublicAndDraft();
 
+        if(!this.articlesArray.length > 0){
+            let emptyArticles = document.createElement('p');
+            
+            emptyArticles.textContent = "Nessun articolo presente";
+            emptyArticles.style.fontSize = "3rem";
+            emptyArticles.style.color = "#828282";
+            
+            document.querySelector('.container').appendChild(emptyArticles);
+        }
+
         for(let i in this.articlesArray){
             let article = this._createNewArticle(this.articlesArray[i]);
 
@@ -111,6 +121,8 @@ class ArticleController{
                 tags: articleToAdd.getTag()
         };
 
+        $('#spinner-modal').modal('show');
+
         let articleId = this.restController.postArticle("http://localhost:3000/articles", postArticle); 
 
         articleToAdd.id = articleId;
@@ -150,7 +162,10 @@ class ArticleController{
 
         $('#modal-add-article').modal('hide');
 
-        location.reload();
+        setTimeout(() =>{
+            $('#spinner-modal').modal('hide');
+            location.reload();
+        }, 700);
     }
 
     _fillModifyField(articleId){

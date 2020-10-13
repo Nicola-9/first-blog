@@ -49,7 +49,7 @@ class RestController{
                 console.log("Execution post request complete");
                 articleId = data.data._id;
                 console.log(articleId);
-            }
+            },
         });
 
         return articleId;
